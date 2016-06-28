@@ -206,9 +206,10 @@ module DeviseTokenAuth
         render_data(message, user_data.merge(data))
 
       elsif auth_origin_url # default to same-window implementation, which forwards back to auth_origin_url
-
+        new_url = auth_origin_url.gsub("/app/index", "/app/loan_plan_searches/index")
+        redirect_to DeviseTokenAuth::Url.generate(new_url, data.merge(blank: true))
         # build and redirect to destination url
-        redirect_to DeviseTokenAuth::Url.generate(auth_origin_url, data.merge(blank: true))
+        # redirect_to DeviseTokenAuth::Url.generate(auth_origin_url, data.merge(blank: true))
       else
 
         # there SHOULD always be an auth_origin_url, but if someone does something silly
